@@ -1,0 +1,20 @@
+config:
+  target: "http://localhost:5001"
+  phases:
+    - duration: 60  # Run the test for 60 seconds
+      arrivalRate: 5  # Start with 5 requests per second
+      name: "Warm-up phase"
+    - duration: 120  # Run for 120 seconds
+      arrivalRate: 10  # Increase load to 10 requests per second
+      rampTo: 20  # Gradually increase to 20 requests per second
+      name: "Stress test phase"
+scenarios:
+  - flow:
+      - get:
+          url: "/api/transactions"
+      - get:
+          url: "/api/budgets"
+      - get:
+          url: "/api/savings"
+      - get:
+          url: "/api/goals"
